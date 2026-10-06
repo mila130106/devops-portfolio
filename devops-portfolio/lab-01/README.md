@@ -1,9 +1,11 @@
 
 # Лабораторна робота №1 — Звіт
+---
 
-## Завдання 1. Git і редактор
+### Завдання 1. Git і редактор
 
-### Вивід глобальних налаштувань Git (`git config --list --global`)
+Вивід глобальних налаштувань Git (`git config --list --global`):
+
 ```text
 core.editor=code --wait
 core.autocrlf=input
