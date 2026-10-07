@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# Node.js / npm
+node_modules/
+npm-debug.log*
+
+# IDE / VS Code
+.vscode/
+.DS_Store
