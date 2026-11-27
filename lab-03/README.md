@@ -31,3 +31,21 @@
 ./lab-03/backup.sh --help
 ./lab-03/backup.sh --source "/tmp/my project" --dest "/tmp/backups" --keep 3
 ./lab-03/backup.sh --source "/tmp/my project" --dest "/tmp/backups" --keep 3 --dry-run
+```
+Приклад виводу в журнал:
+`[2026-11-27 12:06:46] action=backup result=archived=1, deleted=1, archive_size=173B, file=lab03 src-2026-11-27-120646.tar.gz`
+
+---
+
+## 2. Монітор доступності API (`api_monitor.py`)
+Перевіряє цілі з конфігу (`config/endpoints.json`), робить 1 повторну спробу при мережевій помилці, розрізняє 6 типів збоїв (`DNS_ERROR`, `CONNECTION_REFUSED`, `TIMEOUT`, `CERTIFICATE_ERROR`, `UNEXPECTED_STATUS`, `SLOW_RESPONSE`), пише JSONL у `log_file` і бере секрети сповіщень зі змінних середовища (`ALERT_WEBHOOK_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`).
+
+### Запуск
+```bash
+python3 lab-03/api_monitor.py --help
+python3 lab-03/api_monitor.py --config lab-03/config/endpoints.json
+```
+
+### Зєднання відхилено vs Тайм-аут
+- **Зєднання відхилено (`CONNECTION_REFUSED`)**: вузол доступний і пакет дійшов до порту, але сервіс не слухає/відхилив підключення — перевіряємо, чи запущений сервіс, процес і правильний порт.
+- **Тайм-аут (`TIMEOUT`)**: відповідь не прийшла вчасно (пакет відкинуто файрволом, проблема з маршрутом/мережею або сервіс завис під навантаженням) — перевіряємо мережу/файрвол, навантаження та тайм-аут.
