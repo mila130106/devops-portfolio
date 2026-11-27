@@ -1,0 +1,45 @@
+{
+  "log_file": "lab-03/monitor_results.jsonl",
+  "alerts": {
+    "webhook_env": "ALERT_WEBHOOK_URL",
+    "telegram_token_env": "TELEGRAM_BOT_TOKEN",
+    "telegram_chat_env": "TELEGRAM_CHAT_ID"
+  },
+  "targets": [
+    {
+      "name": "github_status",
+      "url": "https://api.github.com",
+      "expected_status": 200,
+      "timeout_sec": 5.0,
+      "max_response_ms": 3000
+    },
+    {
+      "name": "nonexistent_dns",
+      "url": "https://this-domain-definitely-does-not-exist-987654321.example",
+      "expected_status": 200,
+      "timeout_sec": 3.0,
+      "max_response_ms": 2000
+    },
+    {
+      "name": "closed_port_localhost",
+      "url": "http://127.0.0.1:59999/health",
+      "expected_status": 200,
+      "timeout_sec": 2.0,
+      "max_response_ms": 2000
+    },
+    {
+      "name": "expired_cert_test",
+      "url": "https://expired.badssl.com/",
+      "expected_status": 200,
+      "timeout_sec": 5.0,
+      "max_response_ms": 3000
+    },
+    {
+      "name": "unexpected_status_code",
+      "url": "https://httpbin.org/status/404",
+      "expected_status": 200,
+      "timeout_sec": 5.0,
+      "max_response_ms": 3000
+    }
+  ]
+}

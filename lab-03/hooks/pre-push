@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Running pre-push checks..."
+
+if command -v python3 >/dev/null 2>&1; then
+    python3 -m py_compile lab-03/api_monitor.py
+    if [[ -d "lab-03/tests" ]]; then
+        python3 -m unittest discover -s lab-03/tests
+    fi
+fi
+
+if command -v bash >/dev/null 2>&1; then
+    bash -n lab-03/backup.sh
+fi
+
+echo "Pre-push checks passed."
+exit 0
