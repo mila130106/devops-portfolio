@@ -40,7 +40,28 @@
 ## 2. Монітор доступності API (`api_monitor.py`)
 Перевіряє цілі з конфігу (`config/endpoints.json`), робить 1 повторну спробу при мережевій помилці, розрізняє 6 типів збоїв (`DNS_ERROR`, `CONNECTION_REFUSED`, `TIMEOUT`, `CERTIFICATE_ERROR`, `UNEXPECTED_STATUS`, `SLOW_RESPONSE`), пише JSONL у `log_file` і бере секрети сповіщень зі змінних середовища (`ALERT_WEBHOOK_URL`, `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`).
 
-### Запуск
+
+### Приклад конфігурації (`config/endpoints.json`)
+```json
+{
+  "log_file": "lab-03/monitor_results.jsonl",
+  "targets": [
+    {
+      "name": "health-check",
+      "url": "[https://httpbin.org/status/200](https://httpbin.org/status/200)",
+      "expected_status": 200,
+      "timeout_seconds": 5,
+      "slow_threshold_ms": 1500
+    },
+    {
+      "name": "not-found-endpoint",
+      "url": "[https://httpbin.org/status/404](https://httpbin.org/status/404)",
+      "expected_status": 200,
+      "timeout_seconds": 5,
+      "slow_threshold_ms": 1500
+    }
+  ]
+}nn### Запуск
 ```bash
 python3 lab-03/api_monitor.py --help
 python3 lab-03/api_monitor.py --config lab-03/config/endpoints.json
