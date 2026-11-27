@@ -186,7 +186,7 @@ if [[ "$DRY_RUN" == true ]]; then
     else
         echo "[$(timestamp_human)] [DRY-RUN] No old archives to delete (total=${TOTAL_AFTER}, keep=${KEEP})"
     fi
-    log_entry "dry-run" "archived_planned=${NEW_ARCHIVE_COUNT}, deleted_planned=${DELETED_COUNT}, archive_size=N/A"
+    log_entry "dry-run" "archived_planned=${NEW_ARCHIVE_COUNT}, deleted_planned=${DELETED_COUNT}, archive_size=0B (dry-run)"
     exit 0
 fi
 
